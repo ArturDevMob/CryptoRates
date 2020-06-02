@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CryptoRates</string>
+    <string name="no_connection_server">Подключение с сервером отсутствует. \nОтображены устаревшие курсы!</string>
+    <string name="connection_to_server_interrupted">Соединение с сервером потеряно!</string>
+    <string name="connection_to_server_restore">Соединение с сервером восстановлено!</string>
+    <string name="coins_empty">В базе данных нет сохраненных курсов</string>
+    <string name="currency_to_convert">Валюта для конвертации</string>
+    <string name="choose_currency">Выберите валюту:</string>
+    <string name="one_hour">1ч</string>
+    <string name="twenty_four_hour">24ч</string>
+</resources>
