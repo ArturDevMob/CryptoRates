@@ -14,4 +14,4 @@
 * Kotlin synthetic
 * Picasso
 
-<img src="https://raw.githubusercontent.com/ArturDevMob/CryptoRates/master/images/1.png" width="210" /> <img src="https://raw.githubusercontent.com/ArturDevMob/CurrencyRates/master/images/2.png" width="210" /> <img src="https://raw.githubusercontent.com/ArturDevMob/CurrencyRates/master/images/3.png" width="210" />
+<img src="https://raw.githubusercontent.com/ArturDevMob/CryptoRates/master/images/1.png" width="210" /> <img src="https://raw.githubusercontent.com/ArturDevMob/CryptoRates/master/images/2.png" width="210" /> <img src="https://raw.githubusercontent.com/ArturDevMob/CryptoRates/master/images/3.png" width="210" />
