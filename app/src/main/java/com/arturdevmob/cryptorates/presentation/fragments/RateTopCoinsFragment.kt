@@ -46,6 +46,7 @@ class RateTopCoinsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupDi()
+        coinViewModel.startLoadRateTopCoins()
         setupUi()
         setObserverForData()
     }
@@ -72,7 +73,8 @@ class RateTopCoinsFragment : Fragment() {
         }
     }
 
-    // Отобразить-Скрыть вьюхи, связанные с ошибкой сети
+    // true - Отобразить вьюхи связанные с ошибкой сети
+    // false - скрыть
     private fun showError(show: Boolean) {
         val visible = if (show) View.GONE else View.VISIBLE
 
@@ -85,7 +87,8 @@ class RateTopCoinsFragment : Fragment() {
         )
     }
 
-    // Отобразить-Скрыть вьюху progressbar и recyclerview с криптовалютами
+    // true - Отобразит progressbar и скрыть recyclerview
+    // false - наоборот
     private fun showProgressLoadingData(show: Boolean) {
         coins_recycler_view.visibility = if (show) View.GONE else View.VISIBLE
         progress_bar.visibility = if (show) View.VISIBLE else View.GONE
@@ -94,7 +97,7 @@ class RateTopCoinsFragment : Fragment() {
     // Установка spinner с выбором валюты
     // в которые можно конвертировать курс криптовалют
     private fun spinnerToSymbols() {
-        val data = coinViewModel.getToSymbols()
+        val data = coinViewModel.toSymbols
         val toSymbolAdapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, data)
 
@@ -111,7 +114,7 @@ class RateTopCoinsFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                coinViewModel.setSelectedToSymbol(data[position])
+                coinViewModel.changeSelectedToSymbol(data[position])
             }
         }
     }
@@ -135,15 +138,15 @@ class RateTopCoinsFragment : Fragment() {
     private fun setObserverForData() {
         // Получение списка криптовалют
         // Установка списка в адаптер для recyclerview
-        coinViewModel.getCoins()
+        coinViewModel.coinsResource
             .observe(viewLifecycleOwner, Observer {
-                coinsAdapter.coins = it
+                coinsAdapter.coins = it.data
             })
 
         // Состояние подключение к серверу
         // false - нет подключения, true - подключен к серверу
         // результат передаем в метод для показа/скрытия ошибок подключения к серверу
-        coinViewModel.isConnectedToServer()
+        coinViewModel.connectedToServer
             .observe(viewLifecycleOwner, Observer {
                 showError(it)
             })
@@ -151,14 +154,14 @@ class RateTopCoinsFragment : Fragment() {
         // Состояние списка с криптовалюьтами
         // false - список пуст, true - список не пуст
         // устанавливаем видимость ошибки о пустом списке криптовалют
-        coinViewModel.isShowEmptyCoinsMessage()
+        coinViewModel.showEmptyCoinsMessage
             .observe(viewLifecycleOwner, Observer {
                 coins_empty_text.visibility = if (it) View.VISIBLE else View.GONE
             })
 
         // Состояние загрузки данных
         // false - в покое, true - в процессе загрузки
-        coinViewModel.isLoadingData()
+        coinViewModel.loadingData
             .observe(viewLifecycleOwner, Observer {
                 showProgressLoadingData(it)
             })
