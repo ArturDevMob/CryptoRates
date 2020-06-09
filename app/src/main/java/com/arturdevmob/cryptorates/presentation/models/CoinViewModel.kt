@@ -3,21 +3,25 @@ package com.arturdevmob.cryptorates.presentation.models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.arturdevmob.cryptorates.business.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.StatusNetworkDataLoad
-import com.arturdevmob.cryptorates.data.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.sources.db.CoinEntity
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.arturdevmob.cryptorates.data.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-class CoinViewModel(private val coinRepository: CoinRepository) : ViewModel() {
+class CoinViewModel(
+    private val schedulerProvider: SchedulerProvider,
+    private val coinRepository: CoinRepository
+) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     private lateinit var currentCoinsDisposable: Disposable // Поток с текущими криптовалютами
     private val coins = MutableLiveData<MutableList<CoinEntity>>() // Список криптовалют
     private val isConnectedToServer = MutableLiveData<Boolean>() // Состояние подключение к серверу
     private val isShowEmptyCoinsMessage = MutableLiveData<Boolean>() // Список с криптовалютами пуст
     private val isLoadingData = MutableLiveData<Boolean>() // Данные в процессе загрузки
-    private var selectedToSymbol = coinRepository.getSelectedToSymbolDefault() // Выбранная валюта для конвертации
+    private var selectedToSymbol =
+        coinRepository.getSelectedToSymbolDefault() // Выбранная валюта для конвертации
     private val toSymbols = coinRepository.getToSymbols() // Доступные валюты для конвертации
 
     init {
@@ -84,7 +88,8 @@ class CoinViewModel(private val coinRepository: CoinRepository) : ViewModel() {
 
         // Поток
         currentCoinsDisposable = coinRepository.getRateTopCoins(toSymbol)
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
             .subscribe({ it ->
                 when (it.status) {
                     StatusNetworkDataLoad.SUCCESS -> {
@@ -93,7 +98,8 @@ class CoinViewModel(private val coinRepository: CoinRepository) : ViewModel() {
 
                         isConnectedToServer.value?.let { boolean ->
                             if (boolean.not()) {
-                                isConnectedToServer.value = true // Соединение с сервером восстановлено
+                                isConnectedToServer.value =
+                                    true // Соединение с сервером восстановлено
                                 isShowEmptyCoinsMessage.value = false
                             }
                         }

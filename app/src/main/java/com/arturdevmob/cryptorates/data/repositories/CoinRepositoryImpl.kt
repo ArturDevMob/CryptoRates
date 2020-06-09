@@ -1,5 +1,6 @@
 package com.arturdevmob.cryptorates.data.repositories
 
+import com.arturdevmob.cryptorates.business.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.Resource
 import com.arturdevmob.cryptorates.data.StatusNetworkDataLoad
 import com.arturdevmob.cryptorates.data.sources.db.AppDatabase
@@ -7,11 +8,13 @@ import com.arturdevmob.cryptorates.data.sources.db.CoinEntity
 import com.arturdevmob.cryptorates.data.sources.network.CryptoServices
 import com.arturdevmob.cryptorates.data.sources.network.ParseJson
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class CoinRepository(private val network: CryptoServices, private val database: AppDatabase) {
-    fun getToSymbols(): Array<String> {
+class CoinRepositoryImpl(
+    private val network: CryptoServices,
+    private val database: AppDatabase
+) : CoinRepository {
+    override fun getToSymbols(): Array<String> {
         return arrayOf(
             "USD",
             "RUB",
@@ -30,7 +33,7 @@ class CoinRepository(private val network: CryptoServices, private val database: 
         )
     }
 
-    fun getRateTopCoins(toSymbol: String): Flowable<Resource<MutableList<CoinEntity>>> {
+    override fun getRateTopCoins(toSymbol: String): Flowable<Resource<MutableList<CoinEntity>>> {
         return Flowable.interval(0, 10, TimeUnit.SECONDS)
             .flatMap { network.getNameTopCoins(toSymbol = toSymbol) }
             .map { ParseJson.toNameCoins(it) }
@@ -45,10 +48,9 @@ class CoinRepository(private val network: CryptoServices, private val database: 
                 val coinEntities = database.coinDao().getAllCoins()
                 Resource(StatusNetworkDataLoad.ERROR, coinEntities)
             }
-            .subscribeOn(Schedulers.io())
     }
 
-    fun getSelectedToSymbolDefault(): String {
+    override fun getSelectedToSymbolDefault(): String {
         return getToSymbols()[0]
     }
 }

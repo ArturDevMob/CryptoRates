@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.arturdevmob.cryptorates.data.sources.db.AppDatabase
 import com.arturdevmob.cryptorates.data.sources.network.CryptoServices
+import com.arturdevmob.cryptorates.data.utils.rx.SchedulerProvider
+import com.arturdevmob.cryptorates.data.utils.rx.SchedulerProviderImpl
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -44,5 +46,11 @@ class AppModule(private val context: Context) {
     @Singleton
     fun provideAppDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSchedulerProvider(): SchedulerProvider {
+        return SchedulerProviderImpl()
     }
 }
