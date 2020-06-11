@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.arturdevmob.cryptorates.business.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.Resource
-import com.arturdevmob.cryptorates.data.StatusNetworkDataLoad
+import com.arturdevmob.cryptorates.data.StatusNetwork
 import com.arturdevmob.cryptorates.data.sources.db.CoinEntity
 import com.arturdevmob.cryptorates.data.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -63,7 +63,7 @@ class CoinViewModel(
             .observeOn(schedulerProvider.ui())
             .subscribe({
                 when (it.status) {
-                    StatusNetworkDataLoad.SUCCESS -> {
+                    StatusNetwork.SUCCESS -> {
                         connectedToServer.value?.let { boolean ->
                             if (boolean.not()) {
                                 // Соединение с сервером восстановлено
@@ -72,7 +72,7 @@ class CoinViewModel(
                             }
                         }
                     }
-                    StatusNetworkDataLoad.ERROR -> {
+                    StatusNetwork.ERROR -> {
                         connectedToServer.value = false // Соединения с сервером нет
 
                         if (it.data.isEmpty()) {

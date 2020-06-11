@@ -1,5 +1,5 @@
 package com.arturdevmob.cryptorates.data
 
-enum class StatusNetworkDataLoad {
+enum class StatusNetwork {
     SUCCESS, ERROR
 }

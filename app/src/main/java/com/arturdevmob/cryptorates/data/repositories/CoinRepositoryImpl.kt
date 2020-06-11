@@ -2,7 +2,7 @@ package com.arturdevmob.cryptorates.data.repositories
 
 import com.arturdevmob.cryptorates.business.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.Resource
-import com.arturdevmob.cryptorates.data.StatusNetworkDataLoad
+import com.arturdevmob.cryptorates.data.StatusNetwork
 import com.arturdevmob.cryptorates.data.sources.db.AppDatabase
 import com.arturdevmob.cryptorates.data.sources.db.CoinEntity
 import com.arturdevmob.cryptorates.data.sources.network.CryptoServices
@@ -42,11 +42,11 @@ class CoinRepositoryImpl(
                 val coinEntities = ParseJson.toCoinEntities(it)
                 database.coinDao().removeAll()
                 database.coinDao().insert(coinEntities)
-                Resource(StatusNetworkDataLoad.SUCCESS, coinEntities)
+                Resource(StatusNetwork.SUCCESS, coinEntities)
             }
             .onErrorReturn {
                 val coinEntities = database.coinDao().getAllCoins()
-                Resource(StatusNetworkDataLoad.ERROR, coinEntities)
+                Resource(StatusNetwork.ERROR, coinEntities)
             }
     }
 
