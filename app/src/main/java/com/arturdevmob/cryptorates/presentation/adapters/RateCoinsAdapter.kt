@@ -38,7 +38,8 @@ class RateCoinsAdapter : RecyclerView.Adapter<RateCoinsAdapter.ViewHolder>() {
 
             with(itemView) {
                 position_and_symbol_text.text = "${position + 1}. ${coin.fromSymbol}"
-                current_price_text.text = "${coin.currentPrice} ${coin.toSymbol}"
+                current_price_text.text = coin.currentPrice.toString()
+                to_symbol_text.text = coin.toSymbol
 
                 value_change_hour_text.text = coin.percentChangeHour.toString()
                 value_change_24hour_text.text = coin.percentChange24Hour.toString()

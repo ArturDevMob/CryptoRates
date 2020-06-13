@@ -15,7 +15,8 @@
 * Retrofit 2
 * Kotlin synthetic
 * Picasso
-* Mockito
 * JUnit
+* Mockito
+* Espresso
 
 <img src="https://raw.githubusercontent.com/ArturDevMob/CryptoRates/master/images/1.png" width="210" /> <img src="https://raw.githubusercontent.com/ArturDevMob/CryptoRates/master/images/2.png" width="210" /> <img src="https://raw.githubusercontent.com/ArturDevMob/CryptoRates/master/images/3.png" width="210" />
