@@ -1,10 +1,10 @@
 package com.arturdevmob.cryptorates.data.repositories
 
-import com.arturdevmob.cryptorates.domain.models.CoinRateDomainModel
-import com.arturdevmob.cryptorates.domain.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.sources.db.AppDatabase
 import com.arturdevmob.cryptorates.data.sources.network.CryptoServices
 import com.arturdevmob.cryptorates.data.sources.network.ParseJson
+import com.arturdevmob.cryptorates.domain.models.CoinRateDomainModel
+import com.arturdevmob.cryptorates.domain.repositories.CoinRepository
 import io.reactivex.Flowable
 import java.util.concurrent.TimeUnit
 

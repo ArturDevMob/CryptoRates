@@ -8,8 +8,8 @@ import com.arturdevmob.cryptorates.domain.repositories.CoinRepository
 import com.arturdevmob.cryptorates.domain.usecase.GetCoinRatesUseCase
 import com.arturdevmob.cryptorates.domain.usecase.GetCurrencyUseCase
 import com.arturdevmob.cryptorates.presentation.adapters.CoinRatesAdapter
-import com.arturdevmob.cryptorates.presentation.models.ModelFactory
 import com.arturdevmob.cryptorates.presentation.models.CoinRatesViewModel
+import com.arturdevmob.cryptorates.presentation.models.ModelFactory
 import dagger.Module
 import dagger.Provides
 
