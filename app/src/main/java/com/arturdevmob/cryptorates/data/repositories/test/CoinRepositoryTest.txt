@@ -1,0 +1,68 @@
+package com.arturdevmob.cryptorates.data.repositories.test
+
+import com.arturdevmob.cryptorates.domain.models.CoinRateDomainModel
+import com.arturdevmob.cryptorates.domain.repositories.CoinRepository
+import com.arturdevmob.cryptorates.data.models.CoinRateDataModel
+import io.reactivex.Flowable
+import java.util.concurrent.TimeUnit
+import kotlin.random.Random
+
+// Реализация репозитория для UI тестирования
+// resourceCoinType указывает, какие данные должен вернуть метод getRateTopCoins
+class CoinRepositoryTest(private var resourceCoinType: ResourceCoinType) : CoinRepository {
+    override fun getToSymbols(): Array<String> {
+        return arrayOf(
+            "USD", "RUB", "EUR", "CHF", "GBP", "JPY", "UAH",
+            "KZT", "BYN", "TRY", "CNY", "AUD", "CAD", "PLN"
+        )
+    }
+
+    override fun getCoinRates(toSymbol: String): Flowable<List<CoinRateDomainModel>> {
+        val resource = when (resourceCoinType) {
+            ResourceCoinType.NETWORK, ResourceCoinType.CACHED -> createCoinsList(toSymbol)
+            ResourceCoinType.EMPTY -> mutableListOf()
+        }
+
+        return Flowable.interval(0, 10, TimeUnit.SECONDS)
+            .map { resource }
+    }
+
+    override fun getSelectedToSymbolDefault(): String {
+        return getToSymbols()[0]
+    }
+
+    private fun createCoinsList(toSymbol: String = "USD"): List<CoinRateDomainModel> {
+        val coins = mutableListOf<CoinRateDataModel>()
+
+        val dbId = if (resourceCoinType == ResourceCoinType.CACHED) {
+            Random.nextLong(100)
+        } else {
+            null
+        }
+
+        coins.add(
+            CoinRateDataModel(
+                dbId,
+                "BTC",
+                toSymbol,
+                1.2,
+                3.4,
+                5.6,
+                "url"
+            )
+        )
+        coins.add(
+            CoinRateDataModel(
+                dbId,
+                "ETH",
+                toSymbol,
+                11.22,
+                33.33,
+                44.44,
+                "url"
+            )
+        )
+
+        return coins.map { it.toDomainModel() }
+    }*/
+}

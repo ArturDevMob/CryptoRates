@@ -5,4 +5,4 @@ import javax.inject.Scope
 
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class RateTopCoins
+annotation class CoinRatesScope

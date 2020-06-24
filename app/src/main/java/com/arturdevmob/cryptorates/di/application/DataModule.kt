@@ -1,6 +1,6 @@
 package com.arturdevmob.cryptorates.di.application
 
-import com.arturdevmob.cryptorates.business.repositories.CoinRepository
+import com.arturdevmob.cryptorates.domain.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.repositories.CoinRepositoryImpl
 import com.arturdevmob.cryptorates.data.sources.db.AppDatabase
 import com.arturdevmob.cryptorates.data.sources.network.CryptoServices

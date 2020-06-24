@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class RateTopCoinsFragmentTest {
-    @get:Rule
+    /*@get:Rule
     var activityRule = DaggerActivityTestRule(ResourceCoinType.NETWORK)
 
     // Есть подключение к серверу и получены актуальные курсы
@@ -102,5 +102,5 @@ class RateTopCoinsFragmentTest {
                 return false
             }
         }
-    }
+    }*/
 }

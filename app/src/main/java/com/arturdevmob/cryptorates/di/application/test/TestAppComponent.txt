@@ -8,4 +8,4 @@ import javax.inject.Singleton
 
 @Component(modules = [TestDataModule::class, AppModule::class])
 @Singleton
-interface TestAppComponent : AppComponent
+interface TestAppComponent2 : AppComponent

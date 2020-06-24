@@ -1,7 +1,7 @@
 package com.arturdevmob.cryptorates.di.application
 
 import android.content.Context
-import com.arturdevmob.cryptorates.business.repositories.CoinRepository
+import com.arturdevmob.cryptorates.domain.repositories.CoinRepository
 import com.arturdevmob.cryptorates.data.sources.db.AppDatabase
 import com.arturdevmob.cryptorates.data.sources.network.CryptoServices
 import com.arturdevmob.cryptorates.data.utils.rx.SchedulerProvider

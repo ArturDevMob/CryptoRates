@@ -1,6 +1,6 @@
 package com.arturdevmob.cryptorates.data.sources.network
 
-import com.arturdevmob.cryptorates.data.sources.db.CoinEntity
+import com.arturdevmob.cryptorates.data.models.CoinRateDataModel
 import com.google.gson.JsonObject
 
 class ParseJson {
@@ -39,8 +39,8 @@ class ParseJson {
 
         // Принимает ответ сервера в виде JsonObject
         // Распаршивает и возвращает мутабельный лист с entity криптовалют
-        fun toCoinEntities(json: JsonObject): MutableList<CoinEntity> {
-            val coinEntities = mutableListOf<CoinEntity>()
+        fun toCoinEntities(json: JsonObject): List<CoinRateDataModel> {
+            val coinEntities = mutableListOf<CoinRateDataModel>()
             val raw = json.getAsJsonObject(RAW)
 
             for (coinName in raw.keySet()) {
@@ -48,7 +48,8 @@ class ParseJson {
                 val coinInfo = coin.getAsJsonObject(coin.keySet().first())
 
                 coinEntities.add(
-                    CoinEntity(
+                    CoinRateDataModel(
+                        null,
                         coinInfo.get(FROM_SYMBOL).asString,
                         coinInfo.get(TO_SYMBOL).asString,
                         coinInfo.get(CURRENT_PRICE).asDouble,

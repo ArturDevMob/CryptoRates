@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.arturdevmob.cryptorates.R
-import com.arturdevmob.cryptorates.data.sources.db.CoinEntity
+import com.arturdevmob.cryptorates.domain.models.CoinRateDomainModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_rate_top_coins.view.*
 
-class RateCoinsAdapter : RecyclerView.Adapter<RateCoinsAdapter.ViewHolder>() {
-    var coins = mutableListOf<CoinEntity>()
+class CoinRatesAdapter : RecyclerView.Adapter<CoinRatesAdapter.ViewHolder>() {
+    var coins = mutableListOf<CoinRateDomainModel>()
         set(value) {
             coins.clear()
             coins.addAll(value)
